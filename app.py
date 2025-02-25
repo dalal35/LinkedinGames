@@ -14,6 +14,11 @@ def init_db():
     conn.commit()
     conn.close()
 
+# Ensure database is initialized before first request
+@app.before_first_request
+def initialize_app():
+    init_db()
+
 # Home page with form and leaderboard
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -48,5 +53,4 @@ def index():
     return render_template('index.html', leaderboard=leaderboard, all_times=all_times, averages=averages)
 
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True)
