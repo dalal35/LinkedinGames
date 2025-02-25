@@ -14,10 +14,8 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Ensure database is initialized before first request
-@app.before_first_request
-def initialize_app():
-    init_db()
+# Call init_db() once when the app starts
+init_db()  # This runs when the module is imported, suitable for Gunicorn
 
 # Home page with form and leaderboard
 @app.route('/', methods=['GET', 'POST'])
