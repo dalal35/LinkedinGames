@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Games Leaderboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .form-container { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+<h1>LinkedIn Games Leaderboard</h1>
+
+<!-- Form to submit times -->
+<div class="form-container">
+  <form method="POST">
+    <label>Player: <input type="text" name="player" required></label><br>
+    <label>Game:
+      <select name="game" required>
+        <option value="Queens">Queens</option>
+        <option value="Tango">Tango</option>
+      </select>
+    </label><br>
+    <label>Time (seconds): <input type="number" step="0.01" name="time" required></label><br>
+    <label>Date: <input type="date" name="date"></label><br>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+<!-- Leaderboard -->
+<h2>Leaderboard (Best Times)</h2>
+<table>
+  <tr><th>Player</th><th>Game</th><th>Best Time (s)</th></tr>
+  {% for entry in leaderboard %}
+  <tr><td>{{ entry[0] }}</td><td>{{ entry[1] }}</td><td>{{ entry[2] }}</td></tr>
+  {% endfor %}
+</table>
+
+<!-- All Submitted Times -->
+<h2>All Times</h2>
+<table>
+  <tr><th>Player</th><th>Game</th><th>Time (s)</th><th>Date</th></tr>
+  {% for entry in all_times %}
+  <tr><td>{{ entry[0] }}</td><td>{{ entry[1] }}</td><td>{{ entry[2] }}</td><td>{{ entry[3] }}</td></tr>
+  {% endfor %}
+</table>
+
+<!-- Average Times -->
+<h2>Average Times</h2>
+<table>
+  <tr><th>Player</th><th>Average Time (s)</th></tr>
+  {% for avg in averages %}
+  <tr><td>{{ avg[0] }}</td><td>{{ "{:.2f}".format(avg[1]) }}</td></tr>
+  {% endfor %}
+</table>
+</body>
+</html>
